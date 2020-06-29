@@ -27,7 +27,6 @@ services:
       - backend
     volumes:
       - ./web/:/usr/src/app
-      #- ./config:/usr/src/app/config
       - /usr/src/app/node_modules
     environment:
       - PORT=3000
