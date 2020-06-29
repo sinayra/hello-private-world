@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Hello Public World</title>
+  </head>
+  <body>
+    <h1>Message from backend:</h1>
+    <p id="backend"></p>
+
+    <script>
+      const back = document.getElementById("backend");
+      const url = "http://localhost:3333/";
+
+      fetch(url)
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function (data) {
+          back.innerHTML = data.message;
+        });
+    </script>
+  </body>
+</html>

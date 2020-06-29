@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+
+  backend:
+    image: helloworld-private
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    container_name: "express_container"
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    networks: 
+      - webappnetwork
+    expose:
+      - "3333"
+
+  web:
+    image: helloworld-public
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    container_name: "liveserver_container"
+    links:
+      - backend
+    volumes:
+      - ./web/:/usr/src/app
+      #- ./config:/usr/src/app/config
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=3000
+    networks: 
+      - webappnetwork
+    ports: 
+      - "3000:3000"
+
+networks:
+  webappnetwork:
+    driver: bridge
