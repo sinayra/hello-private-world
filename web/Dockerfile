@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:lts
+FROM node:lts as builder
 
 # set working directory
 WORKDIR /usr/src/app
@@ -11,7 +11,10 @@ RUN npm install
 # add app
 COPY . ./
 
-EXPOSE 3000
-
 # start app
-CMD ["npm", "run", "start"]
+#CMD ["npm", "run", "start"]
+
+FROM nginx:stable
+EXPOSE 80
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /usr/src/app /usr/share/nginx/html

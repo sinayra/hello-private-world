@@ -13,8 +13,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.get("/", (req, res) => {
-  console.log("GET /");
+app.get("/api", (req, res) => {
+  console.log("GET /api");
   res.json({ message: "Hello Private World!" });
 });
 
